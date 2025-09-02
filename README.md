@@ -1,2 +1,2 @@
-# custom-vpc
+# Manual Custom VPC
 AWS Custom VPC
