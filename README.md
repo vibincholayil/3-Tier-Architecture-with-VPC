@@ -9,7 +9,7 @@ Database tier (Amazon RDS in private subnets)
 
 # Architecture Diagram
 
-(Insert your diagram here — show VPC, subnets, ALB, NAT Gateway, EC2, RDS, routing.)
+![arch](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/arch.png?raw=true)  
 
 # VPC & Networking
 
