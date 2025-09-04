@@ -14,6 +14,7 @@ Database tier (Amazon RDS in private subnets)
 # VPC & Networking
 
 Custom VPC with CIDR block (e.g., 10.0.0.0/16)
+![1](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/1.png?raw=true)
 
 Subnets:
 
