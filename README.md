@@ -110,3 +110,82 @@ RDS not publicly accessible.
 EC2 instances in private subnet only (no public IPs).
 
 Use IAM roles instead of static credentials.
+
+
+-------------------------------
+install php and apache on the app sever
+https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html
+
+Step 1: Connect to App Server
+
+From your jump server (replace <APP-PRIVATE-IP> with the private IP of app server):
+
+ssh -i vckeypair.pem ec2-user@<APP-PRIVATE-IP>
+
+Step 2: Update Packages
+sudo dnf update -y
+
+Step 3: Install Apache
+sudo dnf install httpd -y
+
+
+Start Apache:
+
+sudo systemctl start httpd
+
+
+Enable Apache to start on boot:
+
+sudo systemctl enable httpd
+
+
+Check Apache status:
+
+sudo systemctl status httpd
+
+Step 4: Install PHP
+sudo dnf install php php-mysqlnd -y
+
+
+Restart Apache to load PHP:
+
+sudo systemctl restart httpd
+
+Step 5: Test PHP
+
+Go to Apache root directory:
+
+cd /var/www/html
+
+
+Create a PHP test file:
+
+sudo nano info.php
+
+
+Add:
+
+<?php
+phpinfo();
+?>
+
+
+Save and exit.
+
+From a browser, access the app server:
+
+If you have a public IP / port forwarding, go to:
+
+http://<APP-PUBLIC-IP>/info.php
+
+
+Or if private subnet, access via jump server using SSH port forwarding:
+
+ssh -i vckeypair.pem -L 8080:<APP-PRIVATE-IP>:80 ec2-user@<JUMP-PUBLIC-IP>
+
+
+Then open in browser: http://localhost:8080/info.php
+
+
+
+
