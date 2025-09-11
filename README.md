@@ -142,26 +142,26 @@ All other route tables are associated with its relevant subnets.
     1. Install PHP, MySQL, Apache
     2. Install Git
     3. Run the database script
-‘’’
--- database_setup.sql
+'''
+-- database_setup.sql  
 
--- Create database
-CREATE DATABASE IF NOT EXISTS hello_world;
-USE hello_world;
+-- Create database  
+CREATE DATABASE IF NOT EXISTS hello_world;  
+USE hello_world;  
 
--- Create messages table
-CREATE TABLE IF NOT EXISTS messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    message VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+-- Create messages table  
+CREATE TABLE IF NOT EXISTS messages (  
+    id INT AUTO_INCREMENT PRIMARY KEY,  
+    message VARCHAR(255) NOT NULL,  
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
+);  
 
--- Insert some initial data
-INSERT INTO messages (message) VALUES 
-('Hello from the database!'),
-('Welcome to our three-tier architecture demo'),
-('This is a simple example showing frontend, backend, and database');
-‘’’
+-- Insert some initial data  
+INSERT INTO messages (message) VALUES   
+('Hello from the database!'),  
+('Welcome to our three-tier architecture demo'),  
+('This is a simple example showing frontend, backend, and database');  
+'''
 
 15. Create the Launch Template for Frontend Server
 16. Create the Launch Template for Backend Server
