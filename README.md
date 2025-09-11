@@ -4,7 +4,7 @@ This repository contains Frontend, Backend, Database code for build a three-tier
 
 ## Architecture Overview
 
-![alt text](aws-three-tier-architecture.png)
+![alt text](images/output.png)
 
 The application follows the classic three-tier architecture:
 
@@ -31,7 +31,7 @@ The application follows the classic three-tier architecture:
 - Basic responsive design
 
 ## Web Output
-![alt text](aws-three-tier-architecture.png)
+![alt text](images/output.png)
 
 ## AWS Infrastructure Components
 
@@ -75,42 +75,42 @@ three-tier-architecture-aws/
 
 ### Steps
 
-1. Create VPC
+#### Create VPC
 ![alt text](images/1.create_vpc.png)
 ![alt text](images/2_vpc_details.png)
 
-3. Create subnets
+#### Create subnets
     1. Web Public 1a, 1b, 1c
     2. Web Private 1a, 1b, 1c
     3. App Private 1a, 1b, 1c
     4. Db Private 1a, 1b, 1c
 ![alt text](images/3_create_subnet.png)
 
-4. Create route tables
+#### Create route tables
     1. Web Public
     2. Web Private 1a, 1b, 1c
     3. App Private 1a, 1b, 1c
     4. Db Private 1a, 1b, 1c
 ![alt text](images/4_route_tables.png)
 
-5. Associate route tables with subnet
+#### Associate route tables with subnet
 ![alt text](images/5_assosiated_web_public_subnet)
 All other route tables are associated with its relevant subnets.
 
-6. Create internet Gateway (IGW)
+#### Create internet Gateway (IGW)
     1. Attach it to VPC
 ![alt text](images/6_igw.png)
 
-7. Create NAT gateway (NATGW) in web public subnet
+#### Create NAT gateway (NATGW) in web public subnet
 ![alt text](images/7_natgw.png)
 
-8. Add IGW and NAT routes in route table
+#### Add IGW and NAT routes in route table
     1. Public -> IGW
 ![alt text](images/8_add_igw_rt.png)
     2. Private -> NAT
 ![alt text](images/9_add_natgw_rt.png)
 
-9. Create security groups
+#### Create security groups
     1. Frontend ALB
     2. Frontend Servers
     3. Backend ALB
@@ -118,26 +118,26 @@ All other route tables are associated with its relevant subnets.
     5. Db Private Servers
 ![alt text](images/10_sg.png)
 
-10. Create database subnet group
+#### Create database subnet group
 ![alt text](images/11_db_subnetgroup.png)
 
-11. Create database server
+#### Create database server
 ![alt text](images/12_db_server.png)
 
-12. Create Frontend ALB
+#### Create Frontend ALB
 ![alt text](images/13_forntend_alb.png)
     1. Create Frontend ALB target group 
 
-13. Create Backend ALB
+#### Create Backend ALB
 ![alt text](images/14_backend_alb.png)
     1. Create Backend ALB target group
 
-14. Create Frontend Server AMI
+#### Create Frontend Server AMI
 ![alt text](images/15_frontend_server_ami.png)
     1. Install Nginx
     2. Install Git
 
-15. Create Backend Server AMI
+#### Create Backend Server AMI
 ![alt text](images/16_backend_server_ami.png)
     1. Install PHP, MySQL, Apache
     2. Install Git
@@ -163,12 +163,12 @@ INSERT INTO messages (message) VALUES
 ('This is a simple example showing frontend, backend, and database');  
 '''
 
-15. Create the Launch Template for Frontend Server
-16. Create the Launch Template for Backend Server
+#### Create the Launch Template for Frontend Server
+#### Create the Launch Template for Backend Server
 ![alt text](images/17_lt.png)
 
-17. Create the Auto Scaling Group for Frontend Server
-18. Create the Auto Scaling Group for Backend Server
+#### Create the Auto Scaling Group for Frontend Server
+#### Create the Auto Scaling Group for Backend Server
 ![alt text](images/18_asg.png)
 
 ## Development
@@ -181,6 +181,8 @@ To make changes to the frontend:
 1. Modify the HTML/CSS/JavaScript files in the `frontend` directory
 2. Test the changes locally
 
+![alt text](images/19_frontend_server.png)
+
 ### Backend Development
 
 The PHP backend provides simple API endpoints for retrieving and saving messages.
@@ -188,6 +190,8 @@ The PHP backend provides simple API endpoints for retrieving and saving messages
 To make changes to the backend:
 1. Modify the PHP files in the `backend/api` directory
 2. Test the changes locally
+
+![alt text](images/20_backend_server.png)
 
 ## Security Considerations
 
@@ -199,12 +203,9 @@ This is a demo application and lacks several security features that would be nec
 - Protection against SQL injection (although PDO with prepared statements is used)
 - CORS configuration
 
-## License
 
-This project is released under the MIT License.
 
-## Acknowledgements
 
-This sample application was created as a demonstration of AWS three-tier architecture principles.
+
 
 
