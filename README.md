@@ -76,7 +76,7 @@ three-tier-architecture-aws/
 ### Steps
 
 1. Create VPC
-![alt text](images/1_create_vpc.png)
+![alt text](images/1.create_vpc.png)
 ![alt text](images/2_vpc_details.png)
 
 3. Create subnets
