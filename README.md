@@ -203,6 +203,8 @@ This is a demo application and lacks several security features that would be nec
 - Protection against SQL injection (although PDO with prepared statements is used)
 - CORS configuration
 
+## Conclusion
+This project showcases a simple three-tier application on AWS, demonstrating the separation of frontend, backend, and database layers. The architecture provides scalability, reliability, and a strong foundation for learning cloud deployments, DevOps practices, and infrastructure automation.
 
 
 
