@@ -76,41 +76,41 @@ three-tier-architecture-aws/
 ### Steps
 
 1. Create VPC
-![alt text](1_create_vpc.png)
-![alt text](2_vpc_details.png)
+![alt text](images/1_create_vpc.png)
+![alt text](images/2_vpc_details.png)
 
-2. Create subnets
+3. Create subnets
     1. Web Public 1a, 1b, 1c
     2. Web Private 1a, 1b, 1c
     3. App Private 1a, 1b, 1c
     4. Db Private 1a, 1b, 1c
 ![alt text](3_create_subnet.png)
 
-3. Create route tables
+4. Create route tables
     1. Web Public
     2. Web Private 1a, 1b, 1c
     3. App Private 1a, 1b, 1c
     4. Db Private 1a, 1b, 1c
 ![alt text](4_route_tables.png)
 
-4. Associate route tables with subnet
+5. Associate route tables with subnet
 ![alt text](5_assosiated_web_public_subnet)
 All other route tables are associated with its relevant subnets.
 
-5. Create internet Gateway (IGW)
+6. Create internet Gateway (IGW)
     1. Attach it to VPC
 ![alt text](6_igw.png)
 
-6. Create NAT gateway (NATGW) in web public subnet
+7. Create NAT gateway (NATGW) in web public subnet
 ![alt text](7_natgw.png)
 
-7. Add IGW and NAT routes in route table
+8. Add IGW and NAT routes in route table
     1. Public -> IGW
 ![alt text](8_add_igw_rt.png)
     2. Private -> NAT
 ![alt text](9_add_natgw_rt.png)
 
-8. Create security groups
+9. Create security groups
     1. Frontend ALB
     2. Frontend Servers
     3. Backend ALB
@@ -118,26 +118,26 @@ All other route tables are associated with its relevant subnets.
     5. Db Private Servers
 ![alt text](10_sg.png)
 
-9. Create database subnet group
+10. Create database subnet group
 ![alt text](11_db_subnetgroup.png)
 
-10. Create database server
+11. Create database server
 ![alt text](12_db_server.png)
 
-11. Create Frontend ALB
+12. Create Frontend ALB
 ![alt text](13_forntend_alb.png)
     1. Create Frontend ALB target group 
 
-12. Create Backend ALB
+13. Create Backend ALB
 ![alt text](14_backend_alb.png)
     1. Create Backend ALB target group
 
-13. Create Frontend Server AMI
+14. Create Frontend Server AMI
 ![alt text](15_frontend_server_ami.png)
     1. Install Nginx
     2. Install Git
 
-14. Create Backend Server AMI
+15. Create Backend Server AMI
 ![alt text](16_backend_server_ami.png)
     1. Install PHP, MySQL, Apache
     2. Install Git
