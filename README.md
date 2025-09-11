@@ -3,7 +3,6 @@
 This repository contains Frontend, Backend, Database code for build a three-tier architecture. The application demonstrates the fundamental concepts of separating frontend, backend, and database components in a web application.
 
 ## Architecture Overview
-
 ![alt text](images/aws-three-tier-architecture.png)
 The application follows the classic three-tier architecture:
 
