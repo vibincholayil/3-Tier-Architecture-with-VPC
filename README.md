@@ -1,4 +1,4 @@
-# Three-Tier Application used AWS
+# Three-Tier Application using AWS
 
 This repository contains Frontend, Backend, Database code for build a three-tier architecture. The application demonstrates the fundamental concepts of separating frontend, backend, and database components in a web application.
 
