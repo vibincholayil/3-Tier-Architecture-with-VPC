@@ -1,191 +1,210 @@
-# 3-Tier Architecture with VPC
+# Three-Tier Application used AWS
+
+This repository contains Frontend, Backend, Database code for build a three-tier architecture. The application demonstrates the fundamental concepts of separating frontend, backend, and database components in a web application.
+
+## Architecture Overview
+
+![alt text](aws-three-tier-architecture.png)
+
+The application follows the classic three-tier architecture:
+
+1. **Frontend Tier (Presentation Layer)**
+   - HTML/CSS/JavaScript
+   - Served by NGINX web servers
+   - Handles user interface and interactions
+
+2. **Backend Tier (Application Layer)**
+   - PHP API
+   - Processes business logic
+   - Communicates with database
+   - Serves data to frontend
+
+3. **Database Tier (Data Layer)**
+   - MySQL database
+   - Stores application data
+   - Provides data persistence
+
+## Features
+
+- Display messages from the database
+- Add new messages to the database
+- Basic responsive design
+
+## Web Output
+![alt text](aws-three-tier-architecture.png)
+
+## AWS Infrastructure Components
+
+When deployed on AWS, the infrastructure includes:
+
+- **Web ALB**: Load balancer for distributing traffic to web servers
+- **NGINX Servers**: EC2 instances in an auto-scaling group
+- **App ALB**: Load balancer for distributing traffic to application servers
+- **PHP Servers**: EC2 instances in an auto-scaling group
+- **RDS MySQL**: Managed relational database service
+
+## Directory Structure
+
+```
+three-tier-architecture-aws/
+├── frontend/
+│   ├── index.html            # Main HTML file
+│   ├── styles.css            # CSS styles
+│
+├── backend/
+│   └── api/                  # API endpoints
+│       ├── get_messages.php  # API to retrieve messages
+│       ├── save_message.php  # API to save new messages
+│       └── db_connection.php # Database connection utility
+│
+├── database/
+│   └── database_setup.sql    # SQL schema and initial data
+│
+└── infrastructure/           # AWS infrastructure configurations
+    ├── frontend_server.md     # Frontend server configurations
+    ├── backend_server.md     # Backend server configurations
+    ├── nginx_config     # Nginx server configurations
+```
+
+## Local Setup
+
+### Prerequisites
+
+- Web server with PHP support (XAMPP, WAMP, MAMP, etc.)
+- MySQL database
+
+### Steps
+
+1. Create VPC
+![alt text](1_create_vpc.png)
+![alt text](2_vpc_details.png)
+
+2. Create subnets
+    1. Web Public 1a, 1b, 1c
+    2. Web Private 1a, 1b, 1c
+    3. App Private 1a, 1b, 1c
+    4. Db Private 1a, 1b, 1c
+![alt text](3_create_subnet.png)
+
+3. Create route tables
+    1. Web Public
+    2. Web Private 1a, 1b, 1c
+    3. App Private 1a, 1b, 1c
+    4. Db Private 1a, 1b, 1c
+![alt text](4_route_tables.png)
+
+4. Associate route tables with subnet
+![alt text](5_assosiated_web_public_subnet)
+All other route tables are associated with its relevant subnets.
+
+5. Create internet Gateway (IGW)
+    1. Attach it to VPC
+![alt text](6_igw.png)
+
+6. Create NAT gateway (NATGW) in web public subnet
+![alt text](7_natgw.png)
 
-# Objective
+7. Add IGW and NAT routes in route table
+    1. Public -> IGW
+![alt text](8_add_igw_rt.png)
+    2. Private -> NAT
+![alt text](9_add_natgw_rt.png)
 
-Design and deploy a secure 3-tier application architecture on AWS consisting of:  
-Web tier (Application Load Balancer in public subnets)  
-App tier (EC2 instances in private subnets)  
-Database tier (Amazon RDS in private subnets)  
+8. Create security groups
+    1. Frontend ALB
+    2. Frontend Servers
+    3. Backend ALB
+    4. Backend Servers
+    5. Db Private Servers
+![alt text](10_sg.png)
 
-# Architecture Diagram
+9. Create database subnet group
+![alt text](11_db_subnetgroup.png)
 
-![arch](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/arch.png?raw=true)  
+10. Create database server
+![alt text](12_db_server.png)
 
-# VPC & Networking
+11. Create Frontend ALB
+![alt text](13_forntend_alb.png)
+    1. Create Frontend ALB target group 
 
-### Create VPC  
-![1](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/1.png?raw=true)  
-![2](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/2.png?raw=true)  
-### VPC Created
-![3](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/3.png?raw=true)  
+12. Create Backend ALB
+![alt text](14_backend_alb.png)
+    1. Create Backend ALB target group
 
-![4](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/4.png?raw=true)
+13. Create Frontend Server AMI
+![alt text](15_frontend_server_ami.png)
+    1. Install Nginx
+    2. Install Git
 
+14. Create Backend Server AMI
+![alt text](16_backend_server_ami.png)
+    1. Install PHP, MySQL, Apache
+    2. Install Git
+    3. Run the database script
+‘’’
+-- database_setup.sql
 
-![5](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/5.png?raw=true)
+-- Create database
+CREATE DATABASE IF NOT EXISTS hello_world;
+USE hello_world;
 
+-- Create messages table
+CREATE TABLE IF NOT EXISTS messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-![6](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/6.png?raw=true)
+-- Insert some initial data
+INSERT INTO messages (message) VALUES 
+('Hello from the database!'),
+('Welcome to our three-tier architecture demo'),
+('This is a simple example showing frontend, backend, and database');
+‘’’
 
+15. Create the Launch Template for Frontend Server
+16. Create the Launch Template for Backend Server
+![alt text](17_lt.png)
 
-![7](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/7.png?raw=true)
+17. Create the Auto Scaling Group for Frontend Server
+18. Create the Auto Scaling Group for Backend Server
+![alt text](18_asg.png)
 
+## Development
 
-![8](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/8.png?raw=true)
+### Frontend Development
 
+The frontend is built with plain HTML, CSS, and JavaScript. It uses the Fetch API to communicate with the backend.
 
-![9](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/1.png?raw=true)
+To make changes to the frontend:
+1. Modify the HTML/CSS/JavaScript files in the `frontend` directory
+2. Test the changes locally
 
+### Backend Development
 
-![10](https://github.com/vibincholayil/3-Tier-Architecture-with-VPC/blob/master/images/1.png?raw=true)
+The PHP backend provides simple API endpoints for retrieving and saving messages.
 
+To make changes to the backend:
+1. Modify the PHP files in the `backend/api` directory
+2. Test the changes locally
 
-Subnets:
+## Security Considerations
 
-Public subnets (in 2 AZs) → ALB + NAT Gateway
+This is a demo application and lacks several security features that would be necessary in a production environment:
 
-Private subnets (in 2 AZs) → EC2 + RDS
+- Input validation and sanitization
+- Authentication and authorization
+- HTTPS encryption
+- Protection against SQL injection (although PDO with prepared statements is used)
+- CORS configuration
 
-Route Tables:
+## License
 
-Public subnets route → Internet Gateway
+This project is released under the MIT License.
 
-Private subnets route → NAT Gateway
+## Acknowledgements
 
-# Components
-Web Tier
-
-Application Load Balancer (ALB) in public subnets
-
-Listener on port 80 (HTTP)
-
-Target group → app EC2s in private subnets
-
-App Tier
-
-EC2 instances (Auto Scaling Group optional) in private subnets
-
-Connected to ALB target group
-
-Outbound internet via NAT Gateway
-
-Database Tier
-
-Amazon RDS (MySQL/Postgres) in private subnets
-
-Multi-AZ enabled (recommended)
-
-Accessible only from App EC2s
-
-# Security Groups
-
-ALB SG: Allow inbound HTTP (80) from 0.0.0.0/0
-
-App EC2 SG: Allow inbound only from ALB SG (port 80 or app port)
-
-RDS SG: Allow inbound only from App EC2 SG (port 3306 for MySQL / 5432 for Postgres)
-
-NAT Gateway SG: Outbound internet access for private EC2
-
-# Implementation Tasks
-
-Create VPC, subnets, IGW, NAT Gateway, and route tables.
-
-Deploy ALB in public subnets.
-
-Launch EC2s in private subnets and register with ALB target group.
-
-Deploy RDS in private subnets with proper security group.
-
-Test application flow:
-
-User → ALB (public) → EC2 (private) → RDS (private).
-
-# Security Considerations
-
-Principle of least privilege for security groups and NACLs.
-
-RDS not publicly accessible.
-
-EC2 instances in private subnet only (no public IPs).
-
-Use IAM roles instead of static credentials.
-
-
--------------------------------
-install php and apache on the app sever
-https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html
-
-Step 1: Connect to App Server
-
-From your jump server (replace <APP-PRIVATE-IP> with the private IP of app server):
-
-ssh -i vckeypair.pem ec2-user@<APP-PRIVATE-IP>
-
-Step 2: Update Packages
-sudo dnf update -y
-
-Step 3: Install Apache
-sudo dnf install httpd -y
-
-
-Start Apache:
-
-sudo systemctl start httpd
-
-
-Enable Apache to start on boot:
-
-sudo systemctl enable httpd
-
-
-Check Apache status:
-
-sudo systemctl status httpd
-
-Step 4: Install PHP
-sudo dnf install php php-mysqlnd -y
-
-
-Restart Apache to load PHP:
-
-sudo systemctl restart httpd
-
-Step 5: Test PHP
-
-Go to Apache root directory:
-
-cd /var/www/html
-
-
-Create a PHP test file:
-
-sudo nano info.php
-
-
-Add:
-
-<?php
-phpinfo();
-?>
-
-
-Save and exit.
-
-From a browser, access the app server:
-
-If you have a public IP / port forwarding, go to:
-
-http://<APP-PUBLIC-IP>/info.php
-
-
-Or if private subnet, access via jump server using SSH port forwarding:
-
-ssh -i vckeypair.pem -L 8080:<APP-PRIVATE-IP>:80 ec2-user@<JUMP-PUBLIC-IP>
-
-
-Then open in browser: http://localhost:8080/info.php
-
-
+This sample application was created as a demonstration of AWS three-tier architecture principles.
 
 
