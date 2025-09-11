@@ -84,31 +84,31 @@ three-tier-architecture-aws/
     2. Web Private 1a, 1b, 1c
     3. App Private 1a, 1b, 1c
     4. Db Private 1a, 1b, 1c
-![alt text](3_create_subnet.png)
+![alt text](images/3_create_subnet.png)
 
 4. Create route tables
     1. Web Public
     2. Web Private 1a, 1b, 1c
     3. App Private 1a, 1b, 1c
     4. Db Private 1a, 1b, 1c
-![alt text](4_route_tables.png)
+![alt text](images/4_route_tables.png)
 
 5. Associate route tables with subnet
-![alt text](5_assosiated_web_public_subnet)
+![alt text](images/5_assosiated_web_public_subnet)
 All other route tables are associated with its relevant subnets.
 
 6. Create internet Gateway (IGW)
     1. Attach it to VPC
-![alt text](6_igw.png)
+![alt text](images/6_igw.png)
 
 7. Create NAT gateway (NATGW) in web public subnet
-![alt text](7_natgw.png)
+![alt text](images/7_natgw.png)
 
 8. Add IGW and NAT routes in route table
     1. Public -> IGW
-![alt text](8_add_igw_rt.png)
+![alt text](images/8_add_igw_rt.png)
     2. Private -> NAT
-![alt text](9_add_natgw_rt.png)
+![alt text](images/9_add_natgw_rt.png)
 
 9. Create security groups
     1. Frontend ALB
@@ -116,29 +116,29 @@ All other route tables are associated with its relevant subnets.
     3. Backend ALB
     4. Backend Servers
     5. Db Private Servers
-![alt text](10_sg.png)
+![alt text](images/10_sg.png)
 
 10. Create database subnet group
-![alt text](11_db_subnetgroup.png)
+![alt text](images/11_db_subnetgroup.png)
 
 11. Create database server
-![alt text](12_db_server.png)
+![alt text](images/12_db_server.png)
 
 12. Create Frontend ALB
-![alt text](13_forntend_alb.png)
+![alt text](images/13_forntend_alb.png)
     1. Create Frontend ALB target group 
 
 13. Create Backend ALB
-![alt text](14_backend_alb.png)
+![alt text](images/14_backend_alb.png)
     1. Create Backend ALB target group
 
 14. Create Frontend Server AMI
-![alt text](15_frontend_server_ami.png)
+![alt text](images/15_frontend_server_ami.png)
     1. Install Nginx
     2. Install Git
 
 15. Create Backend Server AMI
-![alt text](16_backend_server_ami.png)
+![alt text](images/16_backend_server_ami.png)
     1. Install PHP, MySQL, Apache
     2. Install Git
     3. Run the database script
@@ -165,11 +165,11 @@ INSERT INTO messages (message) VALUES
 
 15. Create the Launch Template for Frontend Server
 16. Create the Launch Template for Backend Server
-![alt text](17_lt.png)
+![alt text](images/17_lt.png)
 
 17. Create the Auto Scaling Group for Frontend Server
 18. Create the Auto Scaling Group for Backend Server
-![alt text](18_asg.png)
+![alt text](images/18_asg.png)
 
 ## Development
 
