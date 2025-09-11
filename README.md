@@ -190,6 +190,8 @@ The PHP backend provides simple API endpoints for retrieving and saving messages
 To make changes to the backend:
 1. Modify the PHP files in the `backend/api` directory
 2. Test the changes locally
+3. 
+https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html
 
 ![alt text](images/20_backend_server.png)
 
